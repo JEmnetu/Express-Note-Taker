@@ -32,12 +32,28 @@
                 <form method="POST" role="form">
                     <input class="note-title" placeholder="Note Title" maxlength="28" type="text">
                     <textarea class="note-textarea" placeholder="Note Text"></textarea>
+                    <button type="submit" id="submit-btn">Submit Note</button>
                 </form>
             </div>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="./assets/js/index.js"></script>
+    <script>
+        $('#submit-btn').on('click', (event) => {
+            event.preventDefault();
+            let note = {
+                noteTitle: $('.note-title').val().trim(),
+                noteText: $('.note-textarea').val().trim()
+            }
+            console.log(note);
+            $.post("/notes", note)
+                .then((data) => {
+
+                    alert("Note has been saved!");
+                });
+        })
+    </script>
 </body>
 
 </html>
