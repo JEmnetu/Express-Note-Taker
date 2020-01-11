@@ -9,6 +9,8 @@ let app = new express();
 // Establish the relative port as well as a default of 3000
 var PORT = process.env.PORT || 3000;
 
+let note_db = [];
+
 
 
 // Sets up the Express app to handle data parsing
@@ -37,19 +39,19 @@ app.get('*', (req, res) => {
 //POST Route
 app.post("/notes", (req, res) => {
     var newNote = req.body;
-    console.log(newNote);
+    // console.log(newNote);
+    note_db.push(newNote);
+    fs.writeFileSync(path.join(__dirname + '/db/db.json'), JSON.stringify(note_db));
+    res.send(note_db);
 
-    fs.readFileSync(path.join(__dirname + '/db/db.json'), (err, data) => {
-        if (err) throw (err);
-        let json = JSON.parse(data);
-        json.push(newNote);
+    // fs.readFileSync(path.join(__dirname + '/db/db.json'), (err, data) => {
+    //     if (err) throw (err);
+    //     // let json = [JSON.parse(data)];
+    //     // json.push('{title:"how you doin", text:"Im Guud"}');
 
 
-        fs.appendFileSync(path.join(__dirname + '/db/db.json'), JSON.stringify(newNote), err => {
-            if (err) throw (err);
-        });
-        res.send(newNote);
-    })
+
+    // })
 
 
 });
