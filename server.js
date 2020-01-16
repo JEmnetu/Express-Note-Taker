@@ -7,7 +7,7 @@ let fs = require('fs');
 let app = new express();
 
 // Establish the relative port as well as a default of 3000
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 3900;
 
 let note_db = [];
 
@@ -26,7 +26,27 @@ app.get('/notes', (req, res) => {
 });
 
 app.get('/api/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, 'db/db.json'));
+    res.sendFile(path.join(__dirname, "db/db.json"))
+});
+
+app.post("/api/notes", (req, res) => {
+    var newNote = req.body;
+    // console.log(newNote);
+    if (note_db.length == 0) {
+        newNote.id = 1;
+    } else {
+        newNote.id = note_db[note_db.length - 1].id + 1;
+    }
+
+    note_db.push(newNote);
+    fs.writeFileSync(path.join(__dirname + '/db/db.json'), JSON.stringify(note_db));
+    res.send(note_db);
+
+    // fs.readFileSync(path.join(__dirname + '/db/db.json'), (err, data) => {
+    //     if (err) throw (err);
+    //     // let json = [JSON.parse(data)];
+    //     // json.push('{title:"how you doin", text:"Im Guud"}');
+    // })
 });
 
 
@@ -37,25 +57,22 @@ app.get('*', (req, res) => {
 });
 
 //POST Route
-app.post("/notes", (req, res) => {
-    var newNote = req.body;
-    // console.log(newNote);
-    note_db.push(newNote);
-    fs.writeFileSync(path.join(__dirname + '/db/db.json'), JSON.stringify(note_db));
-    res.send(note_db);
 
-    // fs.readFileSync(path.join(__dirname + '/db/db.json'), (err, data) => {
-    //     if (err) throw (err);
-    //     // let json = [JSON.parse(data)];
-    //     // json.push('{title:"how you doin", text:"Im Guud"}');
-
-
-
-    // })
+// DELETE Route
+app.delete("/api/notes/:id", (req, res) => {
+    let id = req.params.id;
+    notes = note_db.filter(note => {
+        if (id == note.id) {
+            return false;
+        } else {
+            return true;
+        }
+    })
+    console.log(notes);
+    res.json(notes);
 
 
-});
-
+})
 
 app.listen(PORT, () => {
     console.log(`Jake's server is listening on port ${PORT}`);
