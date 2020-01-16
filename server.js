@@ -4,7 +4,7 @@ let path = require('path');
 let fs = require('fs');
 
 // Create an instance of express
-let app = new express();
+let app = express();
 
 // Establish the relative port as well as a default of 3000
 var PORT = process.env.PORT || 3900;
@@ -16,6 +16,7 @@ let note_db = [];
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')))
 
 // ROUTES
 
@@ -39,6 +40,7 @@ app.post("/api/notes", (req, res) => {
     }
 
     note_db.push(newNote);
+    console.log(note_db);
     fs.writeFileSync(path.join(__dirname + '/db/db.json'), JSON.stringify(note_db));
     res.send(note_db);
 

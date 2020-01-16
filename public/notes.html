@@ -40,41 +40,41 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="./assets/js/index.js"></script>
     <script>
-        var $noteTitle = $(".note-title");
-        var $noteText = $(".note-textarea");
-        var $saveNoteBtn = $(".save-note");
-        var $newNoteBtn = $(".new-note");
-        var $noteList = $(".list-container .list-group");
+        // var $noteTitle = $(".note-title");
+        // var $noteText = $(".note-textarea");
+        // var $saveNoteBtn = $(".save-note");
+        // var $newNoteBtn = $(".new-note");
+        // var $noteList = $(".list-container .list-group");
 
-        var renderNoteList = function(notes) {
-            $noteList.empty();
+        // var renderNoteList = function(notes) {
+        //     $noteList.empty();
 
-            var noteListItems = [];
+        //     var noteListItems = [];
 
-            for (var i = 0; i < notes.length; i++) {
-                var note = notes[i];
+        //     for (var i = 0; i < notes.length; i++) {
+        //         var note = notes[i];
 
-                var $li = $("<li class='list-group-item'>").data(note);
-                var $span = $("<span>").text(note.noteTitle);
-                var $delBtn = $(
-                    "<i class='fas fa-trash-alt float-right text-danger delete-note'>"
-                );
+        //         var $li = $("<li class='list-group-item'>").data(note);
+        //         var $span = $("<span>").text(note.noteTitle);
+        //         var $delBtn = $(
+        //             "<i class='fas fa-trash-alt float-right text-danger delete-note'>"
+        //         );
 
-                $li.append($span, $delBtn);
-                noteListItems.push($li);
-            }
+        //         $li.append($span, $delBtn);
+        //         noteListItems.push($li);
+        //     }
 
-            $noteList.append(noteListItems);
-        };
+        //     $noteList.append(noteListItems);
+        // };
 
-        var saveNote = function(note) {
-            event.preventDefault();
-            return $.ajax({
-                url: "/api/notes",
-                data: note,
-                method: "POST"
-            });
-        };
+        // var saveNote = function(note) {
+        //     event.preventDefault();
+        //     return $.ajax({
+        //         url: "/api/notes",
+        //         data: note,
+        //         method: "POST"
+        //     });
+        //};
         // Save notes to db JSON file
         $('#submit-btn').on('click', (event) => {
 
@@ -83,8 +83,8 @@
                 noteTitle: $('.note-title').val().trim(),
                 noteText: $('.note-textarea').val().trim()
             }
-            console.log(note);
-            $.post("/notes", note)
+
+            $.post("/api/notes", note)
                 .then((data) => {
 
                     alert("Note has been saved!");
