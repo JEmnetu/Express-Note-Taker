@@ -22,6 +22,10 @@ An Express Js based CRUD application that allows the user to write, save, and de
 
 * The notes are saved to and rendered from a JSON file via the backend code. If the user would like to view the JSON data they can do so by navigating to '/api/notes'. It is recommended that the user installs a JSON parser for their browser in order to more easily view the data.
 
+[Homepage]('./public/assets/images/Homepage.png)
+[Notes Page]('./public/assets/images/Notes.png')
+[Database]('./public/assets/images/DB.png)
+
 ## The following technologies were used to create this application:
 
 * [CSS Bootstrap](https://getbootstrap.com/docs/4.4/getting-started/introduction/)
