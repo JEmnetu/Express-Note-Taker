@@ -46,37 +46,6 @@
         var $newNoteBtn = $(".new-note");
         var $noteList = $(".list-container .list-group");
 
-        // var renderNoteList = function(notes) {
-        //     $noteList.empty();
-
-        //     var noteListItems = [];
-
-        //     for (var i = 0; i < notes.length; i++) {
-        //         var note = notes[i];
-
-        //         var $li = $("<li class='list-group-item'>").data(note);
-        //         var $span = $("<span>").text(note.noteTitle);
-        //         var $delBtn = $(
-        //             "<i class='fas fa-trash-alt float-right text-danger delete-note'>"
-        //         );
-
-        //         $li.append($span, $delBtn);
-        //         noteListItems.push($li);
-        //     }
-
-        //     $noteList.append(noteListItems);
-        // };
-
-        // var saveNote = function(note) {
-        //     event.preventDefault();
-        //     return $.ajax({
-        //         url: "/api/notes",
-        //         data: note,
-        //         method: "POST"
-        //     });
-        //};
-        // Save notes to db JSON file
-
 
         // Render Notes
         $.get('/api/notes', (data) => {

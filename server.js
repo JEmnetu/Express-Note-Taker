@@ -47,11 +47,6 @@ app.post("/api/notes", (req, res) => {
     res.send(note_db);
 
 
-    // fs.readFileSync(path.join(__dirname + '/db/db.json'), (err, data) => {
-    //     if (err) throw (err);
-    //     // let json = [JSON.parse(data)];
-    //     // json.push('{title:"how you doin", text:"Im Guud"}');
-    // })
 });
 
 
