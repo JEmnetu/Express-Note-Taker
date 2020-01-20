@@ -3,6 +3,7 @@ let express = require('express');
 let path = require('path');
 let fs = require('fs');
 
+
 // Create an instance of express
 let app = express();
 
@@ -27,6 +28,7 @@ app.get('/notes', (req, res) => {
 });
 
 app.get('/api/notes', (req, res) => {
+    console.log(res);
     res.sendFile(path.join(__dirname, "db/db.json"))
 });
 
@@ -40,9 +42,10 @@ app.post("/api/notes", (req, res) => {
     }
 
     note_db.push(newNote);
-    console.log(note_db);
+    console.log(res);
     fs.writeFileSync(path.join(__dirname + '/db/db.json'), JSON.stringify(note_db));
     res.send(note_db);
+
 
     // fs.readFileSync(path.join(__dirname + '/db/db.json'), (err, data) => {
     //     if (err) throw (err);
@@ -63,11 +66,14 @@ app.get('*', (req, res) => {
 // DELETE Route
 app.delete("/api/notes/:id", (req, res) => {
     let id = req.params.id;
+    console.log('note deleted');
     notes = note_db.filter(note => {
         if (id == note.id) {
-            return false;
+            note_db.splice((id - 1), 1);
+            fs.writeFileSync(path.join(__dirname + '/db/db.json'), JSON.stringify(note_db));
+            console.log(note_db);
         } else {
-            return true;
+            console.log('nothing deleted');
         }
     })
     console.log(notes);

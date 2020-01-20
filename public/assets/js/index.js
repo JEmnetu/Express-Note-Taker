@@ -9,21 +9,24 @@ var activeNote = {};
 
 // A function for getting all notes from the db
 var getNotes = function() {
-    return $.ajax({
-        url: "/api/notes",
-        method: "GET"
-    })
+    $.ajax({
+            url: "/api/notes",
+            method: "GET"
+        })
+        .then((data) => {
+            console.log(data);
+        })
 
 };
 
 // A function for saving a note to the db
 var saveNote = function(note) {
-    $.ajax({
+    return $.ajax({
             url: "/api/notes",
             data: note,
             method: "POST"
         })
-        .then((data) => { alert(data) });;
+        .then(() => alert('Note Saved'));
 };
 
 // A function for deleting a note from the db
@@ -41,8 +44,8 @@ var renderActiveNote = function() {
     if (activeNote.id) {
         $noteTitle.attr("readonly", true);
         $noteText.attr("readonly", true);
-        $noteTitle.val(activeNote.noteTitle);
-        $noteText.val(activeNote.noteText);
+        $noteTitle.val(activeNote.title);
+        $noteText.val(activeNote.text);
     } else {
         $noteTitle.attr("readonly", false);
         $noteText.attr("readonly", false);
@@ -53,6 +56,16 @@ var renderActiveNote = function() {
 
 // Get the note data from the inputs, save it to the db and update the view
 var handleNoteSave = function() {
+    var saveNote = function(note) {
+        $.ajax({
+                url: "/api/notes",
+                data: note,
+                method: "POST"
+            })
+            .then((data) => console.log(data))
+            .then(() => alert('Note Saved'));
+    };
+
     var newNote = {
         title: $noteTitle.val(),
         text: $noteText.val()
@@ -69,12 +82,15 @@ var handleNoteDelete = function(event) {
     // prevents the click listener for the list from being called when the button inside of it is clicked
     event.stopPropagation();
 
+
     var note = $(this)
         .parent(".list-group-item")
         .data();
+    console.log(note);
 
     if (activeNote.id === note.id) {
         activeNote = {};
+
     }
 
     deleteNote(note.id).then(function() {
@@ -110,12 +126,12 @@ var renderNoteList = function(notes) {
     $noteList.empty();
 
     var noteListItems = [];
-
+    console.log('Note list' + noteListItems);
     for (var i = 0; i < notes.length; i++) {
         var note = notes[i];
 
         var $li = $("<li class='list-group-item'>").data(note);
-        var $span = $("<span>").text(note.noteTitle);
+        var $span = $("<span>").text(note.title);
         var $delBtn = $(
             "<i class='fas fa-trash-alt float-right text-danger delete-note'>"
         );

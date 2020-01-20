@@ -32,7 +32,7 @@
                 <form method="POST" role="form">
                     <input class="note-title" placeholder="Note Title" maxlength="28" type="text">
                     <textarea class="note-textarea" placeholder="Note Text"></textarea>
-                    <button type="submit" id="submit-btn">Submit Note</button>
+
                 </form>
             </div>
         </div>
@@ -40,11 +40,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="./assets/js/index.js"></script>
     <script>
-        // var $noteTitle = $(".note-title");
-        // var $noteText = $(".note-textarea");
-        // var $saveNoteBtn = $(".save-note");
-        // var $newNoteBtn = $(".new-note");
-        // var $noteList = $(".list-container .list-group");
+        var $noteTitle = $(".note-title");
+        var $noteText = $(".note-textarea");
+        var $saveNoteBtn = $(".save-note");
+        var $newNoteBtn = $(".new-note");
+        var $noteList = $(".list-container .list-group");
 
         // var renderNoteList = function(notes) {
         //     $noteList.empty();
@@ -76,26 +76,12 @@
         //     });
         //};
         // Save notes to db JSON file
-        $('#submit-btn').on('click', (event) => {
 
-            event.preventDefault();
-            let note = {
-                noteTitle: $('.note-title').val().trim(),
-                noteText: $('.note-textarea').val().trim()
-            }
-
-            $.post("/api/notes", note)
-                .then((data) => {
-
-                    alert("Note has been saved!");
-                });
-
-        });
 
         // Render Notes
         $.get('/api/notes', (data) => {
             renderNoteList(data);
-            console.log(data)
+            console.log(data);
         });
     </script>
 </body>
