@@ -24,17 +24,17 @@ app.use(express.static(path.join(__dirname, 'public')))
 // GET Routes
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/notes.html'));
-    console.log('Notes page is rendered');
+
 });
 
 app.get('/api/notes', (req, res) => {
-    console.log(res);
+
     res.sendFile(path.join(__dirname, "db/db.json"))
 });
 
 app.post("/api/notes", (req, res) => {
     var newNote = req.body;
-    // console.log(newNote);
+
     if (note_db.length == 0) {
         newNote.id = 1;
     } else {
@@ -42,7 +42,7 @@ app.post("/api/notes", (req, res) => {
     }
 
     note_db.push(newNote);
-    console.log(res);
+
     fs.writeFileSync(path.join(__dirname + '/db/db.json'), JSON.stringify(note_db));
     res.send(note_db);
 
@@ -53,7 +53,7 @@ app.post("/api/notes", (req, res) => {
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));
-    console.log('Home page is rendered');
+
 });
 
 //POST Route
@@ -61,17 +61,15 @@ app.get('*', (req, res) => {
 // DELETE Route
 app.delete("/api/notes/:id", (req, res) => {
     let id = req.params.id;
-    console.log('note deleted');
+
     notes = note_db.filter(note => {
         if (id == note.id) {
             note_db.splice((id - 1), 1);
             fs.writeFileSync(path.join(__dirname + '/db/db.json'), JSON.stringify(note_db));
-            console.log(note_db);
-        } else {
-            console.log('nothing deleted');
+
         }
     })
-    console.log(notes);
+
     res.json(notes);
 
 

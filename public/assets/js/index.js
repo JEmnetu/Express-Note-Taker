@@ -10,12 +10,10 @@ var activeNote = {};
 // A function for getting all notes from the db
 var getNotes = function() {
     $.ajax({
-            url: "/api/notes",
-            method: "GET"
-        })
-        .then((data) => {
-            console.log(data);
-        })
+        url: "/api/notes",
+        method: "GET"
+    });
+
 
 };
 
@@ -62,7 +60,6 @@ var handleNoteSave = function() {
                 data: note,
                 method: "POST"
             })
-            .then((data) => console.log(data))
             .then(() => alert('Note Saved'));
     };
 
@@ -86,7 +83,7 @@ var handleNoteDelete = function(event) {
     var note = $(this)
         .parent(".list-group-item")
         .data();
-    console.log(note);
+
 
     if (activeNote.id === note.id) {
         activeNote = {};
@@ -126,7 +123,7 @@ var renderNoteList = function(notes) {
     $noteList.empty();
 
     var noteListItems = [];
-    console.log('Note list' + noteListItems);
+
     for (var i = 0; i < notes.length; i++) {
         var note = notes[i];
 
