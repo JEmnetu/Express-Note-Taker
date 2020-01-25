@@ -25,11 +25,13 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/notes.html'));
 
+
 });
 
 app.get('/api/notes', (req, res) => {
 
-    res.sendFile(path.join(__dirname, "db/db.json"))
+    res.sendFile(path.join(__dirname, "db/db.json"));
+
 });
 
 app.post("/api/notes", (req, res) => {
@@ -45,6 +47,7 @@ app.post("/api/notes", (req, res) => {
 
     fs.writeFileSync(path.join(__dirname + '/db/db.json'), JSON.stringify(note_db));
     res.send(note_db);
+
 
 
 });

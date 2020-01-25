@@ -9,7 +9,7 @@ var activeNote = {};
 
 // A function for getting all notes from the db
 var getNotes = function() {
-    $.ajax({
+    return $.ajax({
         url: "/api/notes",
         method: "GET"
     });
@@ -58,7 +58,7 @@ var renderActiveNote = function() {
 // Get the note data from the inputs, save it to the db and update the view
 var handleNoteSave = function() {
     var saveNote = function(note) {
-        $.ajax({
+        return $.ajax({
                 url: "/api/notes",
                 data: note,
                 method: "POST"
